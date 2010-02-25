@@ -102,7 +102,6 @@ PRODUCT_PACKAGES := \
 PRODUCT_PACKAGES += \
     DeskClock \
     Gallery3D \
-    Launcher2 \
     LiveWallpapers \
     LiveWallpapersPicker \
     libRS \
@@ -126,6 +125,12 @@ PRODUCT_COPY_FILES += \
     vendor/cyanogen/prebuilt/common/etc/init.d/03firstboot:system/etc/init.d/03firstboot \
     vendor/cyanogen/prebuilt/common/etc/init.d/20userinit:system/etc/init.d/20userinit \
     vendor/cyanogen/prebuilt/common/etc/init.d/99complete:system/etc/init.d/99complete \
+    vendor/cyanogen/prebuilt/common/etc/permissions/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    vendor/cyanogen/prebuilt/common/etc/permissions/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    vendor/htc/hero/prebuilt/system/etc/permissions/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    vendor/htc/hero/prebuilt/system/etc/permissions/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    vendor/htc/hero/prebuilt/system/etc/permissions/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    vendor/htc/hero/prebuilt/system/etc/permissions/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
     vendor/cyanogen/prebuilt/common/bin/fix_permissions:system/bin/fix_permissions \
     vendor/cyanogen/prebuilt/common/bin/usb-tether:system/bin/usb-tether \
     vendor/cyanogen/prebuilt/common/bin/shutdown:system/bin/shutdown \
