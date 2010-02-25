@@ -62,6 +62,7 @@ USE_CAMERA_STUB := false
 PRODUCT_PACKAGES := \
     AlarmProvider \
     ApplicationsProvider \
+    Bluetooth \
     Browser \
     Bugreport \
     Calculator \
