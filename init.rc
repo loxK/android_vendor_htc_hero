@@ -107,10 +107,6 @@ loglevel 3
     chown root log /proc/vmallocinfo
     chmod 0440 /proc/vmallocinfo
 
-# sd ext
-    mkdir /sd-ext 0771 system system
-    mount -o noatime,nodiratime -t auto /dev/block/mmcblk0p2 /system/sd
-
 # create basic filesystem structure
     mkdir /data/misc 01771 system misc
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
