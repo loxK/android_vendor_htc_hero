@@ -116,6 +116,7 @@ JS_ENGINE=v8
 include frameworks/base/data/sounds/AudioPackage4.mk
 
 PRODUCT_COPY_FILES += \
+    vendor/htc/hero/prebuilt/system/lib/libspeech.so:system/lib/libspeech.so \
     vendor/cyanogen/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml \
     vendor/cyanogen/prebuilt/common/etc/dnsmasq.conf:system/etc/dnsmasq.conf \
     vendor/cyanogen/prebuilt/common/etc/fstab:system/etc/fstab \
