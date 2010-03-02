@@ -62,6 +62,7 @@ USE_CAMERA_STUB := false
 PRODUCT_PACKAGES := \
     AlarmProvider \
     ApplicationsProvider \
+    AccountAndSyncSettings \
     Bluetooth \
     Browser \
     Bugreport \
