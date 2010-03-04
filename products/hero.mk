@@ -70,6 +70,7 @@ PRODUCT_PACKAGES := \
     Calendar \
     CalendarProvider \
     Camera \
+    CertInstaller \
     Contacts \
     ContactsProvider \
     DownloadProvider \
@@ -89,6 +90,7 @@ PRODUCT_PACKAGES := \
     Settings \
     SettingsProvider \
     SoundRecorder \
+    Stk \
     SubscribedFeedsProvider \
     Sync \
     SyncProvider \
