@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=sapphire
+DEVICE=hero
 
 mkdir -p ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/bin/akmd ../../../vendor/htc/$DEVICE/proprietary/akmd

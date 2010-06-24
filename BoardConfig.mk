@@ -65,7 +65,7 @@ TARGET_RECOVERY_UI_LIB := librecovery_ui_hero librecovery_ui_htc
 # against the traditional rules of inheritance).
 USE_CAMERA_STUB := true
 
--include vendor/htc/sapphire/BoardConfigVendor.mk
+-include vendor/htc/hero/BoardConfigVendor.mk
 
 TARGET_BOARD_PLATFORM := msm7k
 TARGET_CPU_ABI := armeabi
