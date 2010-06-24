@@ -1,16 +1,30 @@
+# Copyright (C) 2008 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 on early-init
     device mtd@misc 0460 radio diag
 
 # Set timeout value for rmnet stats.
-  write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000
-  write /sys/devices/virtual/net/rmnet0/timeout 18000000
-
+    write /sys/devices/virtual/net/rmnet0/timeout_suspend 5000000
+    write /sys/devices/virtual/net/rmnet0/timeout 18000000
+    
 on init
 # btips DDB location
     mkdir /data/btips 0777 bluetooth bluetooth
     mkdir /data/btips/TI 0777 bluetooth bluetooth
     mkdir /data/btips/TI/opp 0777 bluetooth bluetooth
-
+    
 on boot
 # unmap left alt to avoid console switch
     setkey 0x0 0x38 0x0
@@ -38,9 +52,18 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660                /sys/class/rfkill/rfkill0/state
 
-    # set all crashes to bin in /data/btips with a descriptive core filename
-    # DEBUG
-    write /proc/sys/kernel/core_pattern /data/btips/core_%e_p_%p_s_%s_t_%t
+    # cpufreq configurations
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245760
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 40000
+    write /sys/devices/system/cpu/cpufreq/ondemand/up_threshold 85
+
+    # Enable low memory killer to check file pages
+    write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,4632,5632,6144
+    write /sys/module/lowmemorykiller/parameters/check_filepages 1
+    
+    # Boot animation
+	mkdir /data/local/bootanimation 0777 shell shell
 
 # compass/accelerometer daemon
 service akmd /system/bin/akmd
@@ -54,18 +77,16 @@ service wlan_loader /system/bin/wlan_loader \
     oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-    user wifi
-    group wifi inet
+    -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf -q
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd /system/bin/dhcpcd -ABKL -d tiwlan0
-    disabled
-    oneshot
-
-service dhcp-release /system/bin/dhcpcd -k tiwlan0
+service dhcpcd /system/bin/dhcpcd -ABKL
     disabled
     oneshot
 
@@ -75,28 +96,8 @@ service hciattach /system/bin/hciattach \
     group bluetooth net_bt_admin
     disabled
 
-#btips - 2.22
-service btips /system/bin/btipsd --logfile /data/btips/btips_log.txt -no_android_log
-    socket bluetooth stream 660 bluetooth bluetooth
-    socket dbus_bluetooth stream 660 bluetooth bluetooth
-    group bluetooth net_bt_admin misc
-    disabled # the MCP monitor service is responsible for bringing up the daemon
-    oneshot
-
 # bugreport is triggered by the KEY_BACK and KEY_MENU keycodes
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     disabled
     oneshot
     keycodes 158 139
-
-service udhcpd /system/bin/udhcpd
-	disabled
-	oneshot
-
-service netsharing_on /system/bin/netsharing net on
-	disabled
-	oneshot
-
-service netsharing_off /system/bin/netsharing net off
-	disabled
-	oneshot

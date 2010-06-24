@@ -14,39 +14,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-DEVICE=hero
+DEVICE=sapphire
 
 mkdir -p ../../../vendor/htc/$DEVICE/proprietary
-unzip -j -o ../../../${DEVICE}_update.zip -d ../../../vendor/htc/$DEVICE/proprietary \
-	 system/bin/akmd \
-	 system/etc/01_qcomm_omx.cfg \
-	 system/etc/AudioFilter.csv \
-	 system/etc/AudioPara4.csv \
-	 system/etc/AudioPreProcess.csv \
-     system/etc/firmware/avpr.bts \
-     system/etc/firmware/brf6300.bin \
-     system/etc/firmware/fmc_init_1273.2.bts \
-     system/etc/firmware/fm_rx_init_1273.2.bts \
-     system/etc/firmware/tiinit_5.3.53.bts \
-     system/etc/firmware/vac_config.ini \
-     system/etc/wifi/Fw1251r1c.bin \
-	 system/lib/egl/libGLES_qcom.so \
-	 system/lib/libaudioeq.so \
-	 system/lib/libcamera.so \
-	 system/lib/libgps.so \
-	 system/lib/libhtc_acoustic.so \
-	 system/lib/libhtc_ril.so \
-	 system/lib/libmm-adspsvc.so \
-	 system/lib/liboemcamera.so \
-	 system/lib/libOmxCore.so \
-	 system/lib/libOmxH264Dec.so \
-	 system/lib/libOmxMpeg4Dec.so \
-	 system/lib/libOmxVidEnc.so \
-	 system/lib/libopencorehw.so \
-	 system/lib/libqcomm_omx.so \
-	 system/lib/libstagefright_omx.so
-	 
+adb pull /system/bin/akmd ../../../vendor/htc/$DEVICE/proprietary/akmd
 chmod 755 ../../../vendor/htc/$DEVICE/proprietary/akmd
+adb pull /system/etc/01_qcomm_omx.cfg ../../../vendor/htc/$DEVICE/proprietary/01_qcomm_omx.cfg
+adb pull /system/etc/AudioFilter.csv ../../../vendor/htc/$DEVICE/proprietary/AudioFilter.csv
+adb pull /system/etc/AudioPara4.csv ../../../vendor/htc/$DEVICE/proprietary/AudioPara4.csv
+adb pull /system/etc/AudioPreProcess.csv ../../../vendor/htc/$DEVICE/proprietary/AudioPreProcess.csv
+adb pull /system/etc/firmware/brf6300.bin ../../../vendor/htc/$DEVICE/proprietary/brf6300.bin
+adb pull /system/etc/wifi/Fw1251r1c.bin ../../../vendor/htc/$DEVICE/proprietary/Fw1251r1c.bin
+adb pull /system/lib/egl/libGLES_qcom.so ../../../vendor/htc/$DEVICE/proprietary/libGLES_qcom.so
+adb pull /system/lib/libaudioeq.so ../../../vendor/htc/$DEVICE/proprietary/libaudioeq.so
+adb pull /system/lib/libcamera.so ../../../vendor/htc/$DEVICE/proprietary/libcamera.so
+adb pull /system/lib/libgps.so ../../../vendor/htc/$DEVICE/proprietary/libgps.so
+adb pull /system/lib/libhtc_acoustic.so ../../../vendor/htc/$DEVICE/proprietary/libhtc_acoustic.so
+adb pull /system/lib/libhtc_ril.so ../../../vendor/htc/$DEVICE/proprietary/libhtc_ril.so
+adb pull /system/lib/libmm-adspsvc.so ../../../vendor/htc/$DEVICE/proprietary/libmm-adspsvc.so
+adb pull /system/lib/liboemcamera.so ../../../vendor/htc/$DEVICE/proprietary/liboemcamera.so
+adb pull /system/lib/libOmxCore.so ../../../vendor/htc/$DEVICE/proprietary/libOmxCore.so
+adb pull /system/lib/libOmxH264Dec.so ../../../vendor/htc/$DEVICE/proprietary/libOmxH264Dec.so
+adb pull /system/lib/libOmxMpeg4Dec.so ../../../vendor/htc/$DEVICE/proprietary/libOmxMpeg4Dec.so
+adb pull /system/lib/libOmxVidEnc.so ../../../vendor/htc/$DEVICE/proprietary/libOmxVidEnc.so
+adb pull /system/lib/libopencorehw.so ../../../vendor/htc/$DEVICE/proprietary/libopencorehw.so
+adb pull /system/lib/libqcomm_omx.so ../../../vendor/htc/$DEVICE/proprietary/libqcomm_omx.so
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g > ../../../vendor/htc/$DEVICE/device_$DEVICE-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -75,12 +67,7 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/AudioFilter.csv:system/etc/AudioFilter.csv \\
     vendor/htc/__DEVICE__/proprietary/AudioPara4.csv:system/etc/AudioPara4.csv \\
     vendor/htc/__DEVICE__/proprietary/AudioPreProcess.csv:system/etc/AudioPreProcess.csv \\
-    vendor/htc/__DEVICE__/proprietary/brf6300.bin:system/etc/firmware/avpr.bts \\
     vendor/htc/__DEVICE__/proprietary/brf6300.bin:system/etc/firmware/brf6300.bin \\
-    vendor/htc/__DEVICE__/proprietary/brf6300.bin:system/etc/firmware/fmc_init_1273.2.bts \\
-    vendor/htc/__DEVICE__/proprietary/brf6300.bin:system/etc/firmware/fm_rx_init_1273.2.bts \\
-    vendor/htc/__DEVICE__/proprietary/brf6300.bin:system/etc/firmware/tiinit_5.3.53.bts \\
-    vendor/htc/__DEVICE__/proprietary/brf6300.bin:system/etc/firmware/vac_config.ini \\
     vendor/htc/__DEVICE__/proprietary/Fw1251r1c.bin:system/etc/wifi/Fw1251r1c.bin \\
     vendor/htc/__DEVICE__/proprietary/libGLES_qcom.so:system/lib/egl/libGLES_qcom.so \\
     vendor/htc/__DEVICE__/proprietary/libaudioeq.so:system/lib/libaudioeq.so \\
@@ -96,7 +83,6 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/libOmxVidEnc.so:system/lib/libOmxVidEnc.so \\
     vendor/htc/__DEVICE__/proprietary/libopencorehw.so:system/lib/libopencorehw.so \\
     vendor/htc/__DEVICE__/proprietary/libqcomm_omx.so:system/lib/libqcomm_omx.so \\
-    vendor/htc/__DEVICE__/proprietary/libstagefrighthw.so:system/lib/libstagefright_omx.so
 EOF
 
 ./setup-makefiles.sh
